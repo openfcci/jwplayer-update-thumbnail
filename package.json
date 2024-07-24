@@ -1,0 +1,17 @@
+{
+  "name": "jwplayer-update-thumbnail",
+  "version": "1.0.0",
+  "description": "Lambda that handles enabling a thumbnail for a live event",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Falcon",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
+  },
+  "type": "module"
+}
