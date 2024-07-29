@@ -32,38 +32,6 @@ const enableThumbnail = async (site_id, thumbnail_id) => {
   return response
 }
 
-const getThumbnail = async (site_id, thumbnail_id) => {
-  const response = axios({
-    method: 'get',
-    url: `https://api.jwplayer.com/v2/sites/${site_id}/thumbnails/${thumbnail_id}/`,
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: process.env.JWPLAYER_SECRET,
-    },
-  })
-    .then((response) => {
-      return response.data
-    })
-    .catch((error) => {
-      if (error.response) {
-        return {
-          error: {
-            status: error.response.status,
-            data: error.response.data,
-          },
-        }
-      } else {
-        return 'Error', error.message
-      }
-    })
-  return response
-}
-
-const isDateInRange = (time, startTime, endTime) => {
-  return time > startTime && time < endTime
-}
-
 const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
@@ -76,11 +44,6 @@ export const handler = async (event) => {
       message: 'malformed event',
     }
   }
-  // const thumbnail = await getThumbnail(event.site_id, event.thumbnail_id)
-  // if (thumbnail?.errors) {
-  //   console.log("thumbnail not uploaded")
-  //   return { message: "thumbnail not available/uploaded" }
-  // }
   const request = await enableThumbnail(event.site_id, event.thumbnail_id)
   if (request?.status !== 'ready') {
     let response
@@ -101,7 +64,6 @@ export const handler = async (event) => {
     }
     console.log(response)
     return response
-    // setup next scheduled call
   } else {
     console.log('Thumbnail successfully uploaded')
     console.log(request)
